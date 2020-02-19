@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tada Base</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/semantic.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row ">
+      <div class="col-12 search">
+        <div class="ui action input">
+          <input type="text" placeholder="Поиск..." id="inputSearch">
+          <select class="ui compact selection dropdown" id="selectSearch">
+            <option value="purchase">Закупка</option>
+            <option value="sale">Продажа</option>
+            <option value="all">Все</option>
+            <option selected="" value="id">ID</option>
+          </select>
+          <div class="ui button ui inverted orange basic" id="search">Поиск</div>
+        </div>
+      </div>
+    </div>
+    <div class="row addProduct">
+      <button class="ui inverted green basic button" data-toggle="modal"
+        data-target=".bd-example-modal-xl">Добавить</button>
+      <button class="ui inverted red basic button">Удалить</button>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table table-hover table-dark">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Закупка</th>
+              <th scope="col">Продажа</th>
+              <th scope="col">ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Larry the Bird</td>
+              <td>@twitter</td>
+              <td>dfgdfg</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row printer">
+      <button class="ui inverted teal basic button">Распечатать</button>
+    </div>
+  </div>
+
+  <!-- Extra large modal -->
+  <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <form action="POST">
+          <input autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Закупка" id="textfieldPurchase">
+          <input autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Продажа" id="textfieldSale">
+          <input autocomplete="off" class="form-control form-control-lg" type="text" placeholder="ID" id="textfieldID" required>
+          <div class="uploadPhoto">
+            <input type="file" multiple style="color:transparent; width:70px;" id="uploadPhotoBtn_1"/>
+            <button class="ui inverted violet basic button" id="uploadPhotoBtn_2">Загрузить фото</button>
+          </div>
+          <textarea id="textfieldDesc" placeholder="Заметки"></textarea>
+          <div class="btnContainer">
+            <button id="submitAddProduct" class="ui inverted green button">Добавить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- <script src="js/jquery-3.4.1.slim.min.js"></script> -->
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/semantic.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #282E33;
+}
+.col-12 {
+    padding: 0;
+}
+.printer,.search,.addProduct,.btnContainer {
+    display: flex;
+    justify-content: center;
+}
+.search {
+    padding: 3% 0 3% 0;
+}
+.addProduct {
+    padding-bottom: 3%;
+}
+.modal-content {
+   background-color: #1E1E1E;
+}
+.modal-content input {
+    margin-top: 3%;  
+    margin-left: 5%;
+    width: 90%;
+    font-size: 20px;
+    
+}
+#textfieldID {
+    color: crimson;
+}
+#textfieldDesc {
+    outline: none;
+    padding-left: 15px;
+    margin-top: 3%;  
+    margin-left: 5%;
+    width: 90%;
+    border-radius: 5px;
+    height: 300px;
+    font-size: 20px;
+    margin-bottom: 3%;
+}
+.uploadPhoto {
+    margin-top: 3%;
+    margin-right: 5%;
+    display: flex;
+    justify-content: flex-end;
+}
+#uploadPhotoBtn_1 {
+    display: none;
+}
+.btnContainer {
+    margin-bottom: 3%;
+}
