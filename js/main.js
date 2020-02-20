@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectSearch = document.getElementById("selectSearch");
     const submit = document.getElementById("submitAddProduct");
     const inputSearch = document.getElementById("inputSearch");
+    
     let numberRow = 0;
 
     const modalData = {
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         desc: document.getElementById("textfieldDesc"),
         photo: document.getElementById("uploadPhotoBtn_1")
     };
+
     
 
 
@@ -20,41 +22,121 @@ document.addEventListener("DOMContentLoaded", () => {
         let index = selectSearch.options.selectedIndex;
         let value = selectSearch.options[index].value;
 
-        if (value == "id") {
-            
-            let v = inputSearch.value;
-            if(v) {
-               console.log("id");
-               printId(v); 
-            } else {
-            console.log("null");
-            }
-            
+        if (value == "id" && inputSearch.value) {         
+           printId(inputSearch.value);                     
         }
         else if (value == "all") {
             printAll();
+        }
+        else if (value == "purchase") {
+            printPurchase(inputSearch.value);
+        }
+        else {
+            printSale(inputSearch.value);
         }
     });
 
     uploadPhotoBtn_2.addEventListener("click", (e) => {
         e.preventDefault();
-        document.getElementById("uploadPhotoBtn_1").click();
+        modalData.photo.click();
     });
 
     submit.addEventListener("click", (e) => {
+        e.stopPropagation();
         e.preventDefault();
 
         const modalValues = {     
-            "purchase": modalData.purchase.value,
-            "sale": modalData.sale.value,
-            "id": modalData.id.value,
-            "descriptions": modalData.desc.value   
+            "purchase": modalData.purchase.value.trim(),
+            "sale": modalData.sale.value.trim(),
+            "id": modalData.id.value.trim(),
+            "descriptions": modalData.desc.value.trim()   
         };
+
+        if(modalData.purchase.value && modalData.sale.value &&
+           modalData.id.value) {
+
+
+            $.post("./api/main.php", modalValues);
+            document.querySelector(".modal").click();
+        }
+
+        if (modalData.photo.files.length != 0) {
+            let photos = new FormData(); 
+
+            for(let i = 0; i < modalData.photo.files.length; i++) {          
+                photos.append(i, modalData.photo.files[i]);
+                
+            }
+            photos.append("my_file_upload", 1);
+
+
+            $.ajax({
+                url         : './api/savePhotos.php',
+                type        : 'POST',
+                data        : photos,
+                cache       : false,
+                dataType    : 'text',
+                // отключаем обработку передаваемых данных, пусть передаются как есть
+                processData : false,
+                // отключаем установку заголовка типа запроса. Так jQuery скажет серверу что это строковой запрос
+                contentType : false,
+                // функция успешного ответа сервера
+                success     : function( respond, status, jqXHR ){
+        
+                    // ОК
+                    if( typeof respond.error === 'undefined' ){
+                        // файлы загружены, делаем что-нибудь
+        
+                        // покажем пути к загруженным файлам в блок '.ajax-reply'
+        
+                        var files_path = respond.files;
+                        var html = '';
+                        $.each( files_path, function( key, val ){
+                             html += val +'<br>';
+                        } )
+        
+                        $('.ajax-reply').html( html );
+                    }
+                    // error
+                    else {
+                        console.log('ОШИБКА: ' + respond.error );
+                    }
+                },
+                // функция ошибки ответа сервера
+                error: function( jqXHR, status, errorThrown ){
+                    console.log( 'ОШИБКА AJAX запроса: ' + status, jqXHR );
+                }
+        
+            });
+
+
+            
+      
+
+            
+
+
+ 
+            
+            
+
+        }
+         
+
         
 
-        $.post("./api/main.php", modalValues);
+       
         
     });
+
+
+
+
+
+
+
+
+
 
     const printAll = () => {
         $.get( "./api/getAll.php", (data) => {
@@ -62,8 +144,9 @@ document.addEventListener("DOMContentLoaded", () => {
             json = JSON.parse(json);
             
 
+            
+            clearTable();
             const table = document.querySelector("tbody");
-
             
 
             json.forEach((value) => {
@@ -95,6 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
             json = JSON.parse(json);
 
 
+            clearTable();
             const table = document.querySelector("tbody");
 
 
@@ -123,6 +207,81 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         });
+    };
+
+    const printPurchase = (purchase) => {
+        $.get("./api/getAll.php", (data) => {
+            let json = JSON.stringify(data);
+            json = JSON.parse(json);
+
+
+            clearTable();
+            const table = document.querySelector("tbody");
+
+            for (let value of json) {
+                if (value.purchase == purchase) {
+                    const tr = document.createElement("tr");
+                    const th = document.createElement("th");
+                    th.setAttribute("scope", "row");
+                    th.textContent = ++numberRow;
+
+                    const tdElem1 = document.createElement("td");
+                    tdElem1.textContent = value.purchase;
+                    const tdElem2 = document.createElement("td");
+                    tdElem2.textContent = value.sale;
+                    const tdElem3 = document.createElement("td");
+                    tdElem3.textContent = value.id;
+
+                    tr.appendChild(th);
+                    tr.appendChild(tdElem1);
+                    tr.appendChild(tdElem2);
+                    tr.appendChild(tdElem3);
+
+                    table.appendChild(tr);
+                }
+            }
+        });
+    };
+
+    const printSale = (sale) => {
+        $.get("./api/getAll.php", (data) => {
+            let json = JSON.stringify(data);
+            json = JSON.parse(json);
+
+
+            clearTable();
+            const table = document.querySelector("tbody");
+
+            for (let value of json) {
+                if (value.sale == sale) {
+                    const tr = document.createElement("tr");
+                    const th = document.createElement("th");
+                    th.setAttribute("scope", "row");
+                    th.textContent = ++numberRow;
+
+                    const tdElem1 = document.createElement("td");
+                    tdElem1.textContent = value.purchase;
+                    const tdElem2 = document.createElement("td");
+                    tdElem2.textContent = value.sale;
+                    const tdElem3 = document.createElement("td");
+                    tdElem3.textContent = value.id;
+
+                    tr.appendChild(th);
+                    tr.appendChild(tdElem1);
+                    tr.appendChild(tdElem2);
+                    tr.appendChild(tdElem3);
+
+                    table.appendChild(tr);
+                }
+            }
+        });
+    };
+
+    const clearTable = () => {
+       let oldTable = document.querySelector("table").lastElementChild;
+
+       oldTable.replaceWith(document.createElement("tbody"));
+       numberRow = 0;   
     };
 
 
