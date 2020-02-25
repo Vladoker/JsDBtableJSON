@@ -39,8 +39,10 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Закупка</th>
-              <th scope="col">Продажа</th>
+              <th scope="col">Продажа</th>          
               <th scope="col">ID</th>
+              <th scope="col">От</th>
+              <th scope="col">Тип</th>
             </tr>
           </thead>
           <tbody>
@@ -79,9 +81,24 @@
         <form action="POST">
           <input autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Закупка" id="textfieldPurchase">
           <input autocomplete="off" class="form-control form-control-lg" type="text" placeholder="Продажа" id="textfieldSale">
+          <input autocomplete="off" class="form-control form-control-lg" type="text" placeholder="От кого ?" id="textfieldWho" required>
           <input autocomplete="off" class="form-control form-control-lg" type="text" placeholder="ID" id="textfieldID" required>
           <div class="uploadPhoto">
             <input type="file" multiple style="color:transparent; width:70px;" id="uploadPhotoBtn_1"/>
+            <select class="ui inverted purple basic button" id="typeProductSelect">
+              <option selected="" value="null">Выберите Тип</option>
+              <option value="bagGiel">Сумка женская кож.зам</option>
+              <option value="clutch">Клатч</option>
+              <option value="bagMan">Сумка мужская</option>
+              <option value="backpackGirl">Рюкзак женский кож.зам</option>
+              <option value="backpack">Рюкзак</option>
+              <option value="BigBack">Сумка богажная</option>
+              <option value="BigBackWhell">Сумка богажная на колёсах</option>
+              <option value="BagforBoock">Сумка для ноутбуков</option>
+              <option value="iemodans">Чемоданы пластик</option>
+              <option value="walletMan">Кошелёк мужской</option>
+              <option value="walletGirl">Кошелёк женский</option>             
+            </select>
             <button class="ui inverted violet basic button" id="uploadPhotoBtn_2">Загрузить фото</button>
           </div>
           <textarea id="textfieldDesc" placeholder="Заметки"></textarea>

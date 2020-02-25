@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectSearch = document.getElementById("selectSearch");
     const submit = document.getElementById("submitAddProduct");
     const inputSearch = document.getElementById("inputSearch");
+    const typeProduct = document.getElementById("typeProductSelect");
     
     let numberRow = 0;
 
@@ -11,7 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
         sale: document.getElementById("textfieldSale"),
         id: document.getElementById("textfieldID"),
         desc: document.getElementById("textfieldDesc"),
-        photo: document.getElementById("uploadPhotoBtn_1")
+        photo: document.getElementById("uploadPhotoBtn_1"),
+        Who: document.getElementById("textfieldWho"),
     };
 
     
@@ -45,19 +47,28 @@ document.addEventListener("DOMContentLoaded", () => {
         e.stopPropagation();
         e.preventDefault();
 
+        let index = typeProduct.options.selectedIndex;
+        let value = typeProduct.options[index].value;
+
+
         const modalValues = {     
             "purchase": modalData.purchase.value.trim(),
             "sale": modalData.sale.value.trim(),
             "id": modalData.id.value.trim(),
-            "descriptions": modalData.desc.value.trim()   
+            "descriptions": modalData.desc.value.trim(),   
+            "Who": modalData.Who.value.trim(),   
+            "TypeProduct": value   
         };
 
         if(modalData.purchase.value && modalData.sale.value &&
-           modalData.id.value) {
+           modalData.id.value && modalData.Who.value && value != "null") {
 
 
             $.post("./api/main.php", modalValues);
             document.querySelector(".modal").click();
+        }
+        else {
+            document.getElementById("typeProductSelect").classList = "ui inverted red button";
         }
 
         if (modalData.photo.files.length != 0) {
@@ -109,16 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
             });
 
-
-            
-      
-
-            
-
-
- 
-            
-            
 
         }
          

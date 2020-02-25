@@ -54,3 +54,6 @@ body {
 .btnContainer {
     margin-bottom: 3%;
 }
+#typeProductSelect option {
+    background-color: #1B1C1D;
+}
