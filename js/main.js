@@ -57,13 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
             "id": modalData.id.value.trim(),
             "descriptions": modalData.desc.value.trim(),   
             "Who": modalData.Who.value.trim(),   
-            "TypeProduct": value   
+            "TypeProduct": value,
+            "urlPhoto":  `${value}/${modalData.id.value.trim()}`  
         };
+
 
         if(modalData.purchase.value && modalData.sale.value &&
            modalData.id.value && modalData.Who.value && value != "null") {
-
-
             $.post("./api/main.php", modalValues);
             document.querySelector(".modal").click();
         }
@@ -71,14 +71,15 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("typeProductSelect").classList = "ui inverted red button";
         }
 
-        if (modalData.photo.files.length != 0) {
+        if (modalData.photo.files.length != 0 && value != "null") {
             let photos = new FormData(); 
 
             for(let i = 0; i < modalData.photo.files.length; i++) {          
                 photos.append(i, modalData.photo.files[i]);
                 
             }
-            photos.append("my_file_upload", 1);
+            photos.append("my_file_upload", 1);         
+            photos.append("dirURLPhoto", modalValues.urlPhoto);
 
 
             $.ajax({
@@ -100,13 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
                         // покажем пути к загруженным файлам в блок '.ajax-reply'
         
-                        var files_path = respond.files;
-                        var html = '';
-                        $.each( files_path, function( key, val ){
-                             html += val +'<br>';
-                        } )
-        
-                        $('.ajax-reply').html( html );
+                       console.log(respond);
                     }
                     // error
                     else {

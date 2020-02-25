@@ -4,10 +4,12 @@
 if( isset( $_POST['my_file_upload'] ) ){  
     // ВАЖНО! тут должны быть все проверки безопасности передавемых файлов и вывести ошибки если нужно
 
-    $uploaddir = '../data/photo'; // . - текущая папка где находится submit.php
+    
+    $uploaddir = '../data/photo/' . $_POST["dirURLPhoto"];
+   
     
     // cоздадим папку если её нет
-    if( ! is_dir( $uploaddir ) ) mkdir( $uploaddir, 0777 );
+    if( ! is_dir( $uploaddir ) ) mkdir( $uploaddir, 0777, true);
 
     $files      = $_FILES; // полученные файлы
     $done_files = array();
