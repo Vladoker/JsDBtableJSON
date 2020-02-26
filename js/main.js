@@ -142,28 +142,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             
             clearTable();
-            const table = document.querySelector("tbody");
+            
             
 
             json.forEach((value) => {
-                const tr = document.createElement("tr");
-                const th = document.createElement("th"); 
-                th.setAttribute("scope", "row");
-                th.textContent = ++numberRow;
-
-                const tdElem1 = document.createElement("td");
-                tdElem1.textContent = value.purchase;
-                const tdElem2 = document.createElement("td");
-                tdElem2.textContent = value.sale;
-                const tdElem3 = document.createElement("td");
-                tdElem3 .textContent = value.id;
-                
-                tr.appendChild(th);
-                tr.appendChild(tdElem1);
-                tr.appendChild(tdElem2);
-                tr.appendChild(tdElem3);
-                table.appendChild(tr);
-                
+                createTable(value);              
             });       
         });
     };
@@ -175,31 +158,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             clearTable();
-            const table = document.querySelector("tbody");
+            
 
 
 
 
             for (let value of json) {
                 if (value.id == id) {
-                    const tr = document.createElement("tr");
-                    const th = document.createElement("th");
-                    th.setAttribute("scope", "row");
-                    th.textContent = ++numberRow;
-
-                    const tdElem1 = document.createElement("td");
-                    tdElem1.textContent = value.purchase;
-                    const tdElem2 = document.createElement("td");
-                    tdElem2.textContent = value.sale;
-                    const tdElem3 = document.createElement("td");
-                    tdElem3.textContent = value.id;
-
-                    tr.appendChild(th);
-                    tr.appendChild(tdElem1);
-                    tr.appendChild(tdElem2);
-                    tr.appendChild(tdElem3);
-
-                    table.appendChild(tr);
+                    createTable(value);
                 }
             }
         });
@@ -212,28 +178,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             clearTable();
-            const table = document.querySelector("tbody");
+            
 
             for (let value of json) {
                 if (value.purchase == purchase) {
-                    const tr = document.createElement("tr");
-                    const th = document.createElement("th");
-                    th.setAttribute("scope", "row");
-                    th.textContent = ++numberRow;
-
-                    const tdElem1 = document.createElement("td");
-                    tdElem1.textContent = value.purchase;
-                    const tdElem2 = document.createElement("td");
-                    tdElem2.textContent = value.sale;
-                    const tdElem3 = document.createElement("td");
-                    tdElem3.textContent = value.id;
-
-                    tr.appendChild(th);
-                    tr.appendChild(tdElem1);
-                    tr.appendChild(tdElem2);
-                    tr.appendChild(tdElem3);
-
-                    table.appendChild(tr);
+                    createTable(value);
                 }
             }
         });
@@ -245,29 +194,11 @@ document.addEventListener("DOMContentLoaded", () => {
             json = JSON.parse(json);
 
 
-            clearTable();
-            const table = document.querySelector("tbody");
+            clearTable();           
 
             for (let value of json) {
                 if (value.sale == sale) {
-                    const tr = document.createElement("tr");
-                    const th = document.createElement("th");
-                    th.setAttribute("scope", "row");
-                    th.textContent = ++numberRow;
-
-                    const tdElem1 = document.createElement("td");
-                    tdElem1.textContent = value.purchase;
-                    const tdElem2 = document.createElement("td");
-                    tdElem2.textContent = value.sale;
-                    const tdElem3 = document.createElement("td");
-                    tdElem3.textContent = value.id;
-
-                    tr.appendChild(th);
-                    tr.appendChild(tdElem1);
-                    tr.appendChild(tdElem2);
-                    tr.appendChild(tdElem3);
-
-                    table.appendChild(tr);
+                    createTable(value);
                 }
             }
         });
@@ -278,6 +209,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
        oldTable.replaceWith(document.createElement("tbody"));
        numberRow = 0;   
+    };
+
+    const createTable = (value) => {
+
+        console.log(value);
+
+        const table = document.querySelector("tbody");
+        const tr = document.createElement("tr");
+        const th = document.createElement("th"); 
+        th.setAttribute("scope", "row");
+        th.textContent = ++numberRow;
+
+        const tdElem1 = document.createElement("td");
+        tdElem1.textContent = value.purchase;
+        const tdElem2 = document.createElement("td");
+        tdElem2.textContent = value.sale;
+        const tdElem3 = document.createElement("td");
+        tdElem3.textContent = value.id;
+        const tdElem4 = document.createElement("td");
+        tdElem4.textContent = value.Who;
+        const tdElem5 = document.createElement("td");
+        tdElem5.textContent = value.TypeProduct;
+        
+        tr.appendChild(th);
+        tr.appendChild(tdElem1);
+        tr.appendChild(tdElem2);
+        tr.appendChild(tdElem3);
+        tr.appendChild(tdElem4);
+        tr.appendChild(tdElem5);
+        table.appendChild(tr);
     };
 
 
