@@ -18,10 +18,28 @@
         <div class="ui action input">
           <input type="text" placeholder="Поиск..." id="inputSearch">
           <select class="ui compact selection dropdown" id="selectSearch">
-            <option value="purchase">Закупка</option>
-            <option value="sale">Продажа</option>
             <option value="all">Все</option>
             <option selected="" value="id">ID</option>
+            <option value="purchase">Закупка</option>
+            <option value="sale">Продажа</option>
+
+            <option value="backpackGirl">Рюкзак женский кож.зам</option>
+            <option value="backpack">Рюкзак</option>
+            <option value="bagGirl">Сумка женская кож.зам</option>
+            <option value="bagMan">Сумка мужская</option>
+            <option value="BigBack">Сумка богажная</option>
+            <option value="BigBackWhell">Сумка богажная на колёсах</option>
+            <option value="BagforBoock">Сумка для ноутбуков</option>                                                                               
+            <option value="iemodans">Чемоданы пластик</option>
+            <option value="iemodansText">Чемоданы текстиль</option>
+            <option value="walletMan">Кошелёк мужской</option>
+            <option value="walletGirl">Кошелёк женский</option>
+            <option value="clutch">Клатч</option>                        
+            <option value="backpackAll">Рюкзаки все</option>                        
+            <option value="bagAll">Сумка вся</option>                        
+            <option value="iemodansAll">Чемоданы все</option>                        
+            <option value="walletAll">Кошельки все</option>                        
+            <option value="Who">От кого ?</option>                        
           </select>
           <div class="ui button ui inverted orange basic" id="search">Поиск</div>
         </div>
@@ -30,7 +48,7 @@
     <div class="row addProduct">
       <button class="ui inverted green basic button" data-toggle="modal"
         data-target=".bd-example-modal-xl">Добавить</button>
-      <button class="ui inverted red basic button">Удалить</button>
+      <button id="btnDelete" class="ui inverted red basic button">Удалить</button>
     </div>
     <div class="row">
       <div class="col-12">
@@ -87,18 +105,18 @@
             <input type="file" multiple style="color:transparent; width:70px;" id="uploadPhotoBtn_1"/>
             <select class="ui inverted purple basic button" id="typeProductSelect">
               <option selected="" value="null">Выберите Тип</option>
-              <option value="bagGiel">Сумка женская кож.зам</option>
-              <option value="clutch">Клатч</option>
-              <option value="bagMan">Сумка мужская</option>
               <option value="backpackGirl">Рюкзак женский кож.зам</option>
               <option value="backpack">Рюкзак</option>
+              <option value="bagGirl">Сумка женская кож.зам</option>
+              <option value="bagMan">Сумка мужская</option>
               <option value="BigBack">Сумка богажная</option>
               <option value="BigBackWhell">Сумка богажная на колёсах</option>
-              <option value="BagforBoock">Сумка для ноутбуков</option>
+              <option value="BagforBoock">Сумка для ноутбуков</option>                                                                                
               <option value="iemodans">Чемоданы пластик</option>
               <option value="iemodansText">Чемоданы текстиль</option>
               <option value="walletMan">Кошелёк мужской</option>
-              <option value="walletGirl">Кошелёк женский</option>             
+              <option value="walletGirl">Кошелёк женский</option>
+              <option value="clutch">Клатч</option>             
             </select>
             <button class="ui inverted violet basic button" id="uploadPhotoBtn_2">Загрузить фото</button>
           </div>

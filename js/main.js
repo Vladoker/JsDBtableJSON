@@ -5,7 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputSearch = document.getElementById("inputSearch");
     const typeProduct = document.getElementById("typeProductSelect");
     
+    
     let numberRow = 0;
+    let maintable;
+    let selectedRow = [];
 
     const modalData = {
         purchase: document.getElementById("textfieldPurchase"),
@@ -24,18 +27,32 @@ document.addEventListener("DOMContentLoaded", () => {
         let index = selectSearch.options.selectedIndex;
         let value = selectSearch.options[index].value;
 
-        if (value == "id" && inputSearch.value) {         
-           printId(inputSearch.value);                     
+                
+          
+                        
+        
+        if (value == "all") {
+            printAll();    
         }
-        else if (value == "all") {
-            printAll();
+        else if (value == "backpackAll") {
+            printSearchAllType("backpack","backpackGirl");
         }
-        else if (value == "purchase") {
-            printPurchase(inputSearch.value);
+        else if (value == "bagAll") {
+            printSearchAllType("bagGirl","bagMan","BigBack","BigBackWhell","BagforBoock");
+        }
+        else if (value == "iemodansAll") {
+            printSearchAllType("iemodans","iemodansText");
+        }
+        else if (value == "walletAll") {
+            printSearchAllType("walletMan","walletGirl");
         }
         else {
-            printSale(inputSearch.value);
+           printSearch(inputSearch.value, value);  
         }
+
+        setTimeout(listen, 500);
+        
+        
     });
 
     uploadPhotoBtn_2.addEventListener("click", (e) => {
@@ -58,10 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
             "descriptions": modalData.desc.value.trim(),   
             "Who": modalData.Who.value.trim(),   
             "TypeProduct": value,
-            "urlPhoto":  `${value}/${modalData.id.value.trim()}`  
+            "urlPhoto":  modalData.photo.files.length != 0 ? `${value}/${modalData.id.value.trim()}` : ""  
         };
 
-
+        // `${value}/${modalData.id.value.trim()}`  
         if(modalData.purchase.value && modalData.sale.value &&
            modalData.id.value && modalData.Who.value && value != "null") {
             $.post("./api/main.php", modalValues);
@@ -101,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
                         // покажем пути к загруженным файлам в блок '.ajax-reply'
         
-                       console.log(respond);
+                    //    console.log(respond);
                     }
                     // error
                     else {
@@ -124,6 +141,25 @@ document.addEventListener("DOMContentLoaded", () => {
        
         
     });
+    btnDelete.addEventListener("click", () => {
+
+        for (let i = 0; i < maintable.rows.length; i++) {
+            if (maintable.rows[i].classList == "selected") {
+                selectedRow.push(maintable.rows[i]);
+            }
+            
+        }
+     
+        console.log(selectedRow);
+        selectedRow = [];
+    });
+
+
+    
+
+
+   
+    
 
 
 
@@ -151,44 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    const printId = (id) => {
-        $.get("./api/getAll.php", (data) => {
-            let json = JSON.stringify(data);
-            json = JSON.parse(json);
-
-
-            clearTable();
-            
-
-
-
-
-            for (let value of json) {
-                if (value.id == id) {
-                    createTable(value);
-                }
-            }
-        });
-    };
-
-    const printPurchase = (purchase) => {
-        $.get("./api/getAll.php", (data) => {
-            let json = JSON.stringify(data);
-            json = JSON.parse(json);
-
-
-            clearTable();
-            
-
-            for (let value of json) {
-                if (value.purchase == purchase) {
-                    createTable(value);
-                }
-            }
-        });
-    };
-
-    const printSale = (sale) => {
+    const printSearch = (searchValue, typeSearch) => {
         $.get("./api/getAll.php", (data) => {
             let json = JSON.stringify(data);
             json = JSON.parse(json);
@@ -197,9 +196,26 @@ document.addEventListener("DOMContentLoaded", () => {
             clearTable();           
 
             for (let value of json) {
-                if (value.sale == sale) {
+                if (value[typeSearch] == searchValue || searchValue == "" && value.TypeProduct == typeSearch) {
                     createTable(value);
                 }
+            }
+        });
+    };
+    const printSearchAllType = (...args) => {
+        $.get("./api/getAll.php", (data) => {
+            let json = JSON.stringify(data);
+            json = JSON.parse(json);
+
+
+            clearTable();           
+
+            for (let value of json) {
+                args.forEach((arg) => {
+                    if (value.TypeProduct == arg) {
+                        createTable(value);
+                    }
+                });
             }
         });
     };
@@ -212,8 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const createTable = (value) => {
-
-        console.log(value);
 
         const table = document.querySelector("tbody");
         const tr = document.createElement("tr");
@@ -239,7 +253,46 @@ document.addEventListener("DOMContentLoaded", () => {
         tr.appendChild(tdElem4);
         tr.appendChild(tdElem5);
         table.appendChild(tr);
+        maintable = table;
     };
+
+    const listen = () => {
+        try {
+            for (let i = 0; i < maintable.rows.length; i++) {
+                maintable.rows[i].addEventListener("click", () => {
+
+
+
+                    if (maintable.rows[i].classList == "") {
+                        maintable.rows[i].classList = "selected";
+                        maintable.rows[i].style.color = "red";
+                    }
+                    else {
+                        maintable.rows[i].classList = "";
+                        maintable.rows[i].style.color = "#ffffff";
+                    }
+
+
+                    
+                        
+                    
+                    
+                    
+                    
+                });
+            }
+        }
+        catch (error) {
+
+        }
+        
+        
+       
+    };
+
+    
+
+
 
 
 
