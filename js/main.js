@@ -141,16 +141,33 @@ document.addEventListener("DOMContentLoaded", () => {
        
         
     });
-    btnDelete.addEventListener("click", () => {
 
-        for (let i = 0; i < maintable.rows.length; i++) {
+    btnDelete.addEventListener("click", () => {   
+        let json = {};
+
+        for (let i = 0, j = 0; i < maintable.rows.length; i++) {
             if (maintable.rows[i].classList == "selected") {
                 selectedRow.push(maintable.rows[i]);
+                json[j++] = {
+                    "purchase": maintable.rows[i].cells[1].textContent,
+                    "sale": maintable.rows[i].cells[2].textContent,
+                    "id": maintable.rows[i].cells[3].textContent,
+                    "Who":maintable.rows[i].cells[4].textContent,
+                    "TypeProduct": maintable.rows[i].cells[5].textContent,
+                    "descriptions": maintable.rows[i].cells[6].textContent, 
+                    "urlPhoto": maintable.rows[i].cells[7].textContent                  
+                }
             }
             
         }
-     
-        console.log(selectedRow);
+        
+
+       $.post("./api/deleteProduct.php",json, (data)=>{
+        console.log(data);
+       });
+
+
+        console.log(json);
         selectedRow = [];
     });
 
@@ -245,6 +262,12 @@ document.addEventListener("DOMContentLoaded", () => {
         tdElem4.textContent = value.Who;
         const tdElem5 = document.createElement("td");
         tdElem5.textContent = value.TypeProduct;
+        const tdElem6 = document.createElement("td");
+        tdElem6.textContent = value.descriptions;
+        tdElem6.style.display = "none";
+        const tdElem7 = document.createElement("td");
+        tdElem7.textContent = value.urlPhoto;
+        tdElem7.style.display = "none";
         
         tr.appendChild(th);
         tr.appendChild(tdElem1);
@@ -252,6 +275,8 @@ document.addEventListener("DOMContentLoaded", () => {
         tr.appendChild(tdElem3);
         tr.appendChild(tdElem4);
         tr.appendChild(tdElem5);
+        tr.appendChild(tdElem6);
+        tr.appendChild(tdElem7);
         table.appendChild(tr);
         maintable = table;
     };
@@ -261,8 +286,6 @@ document.addEventListener("DOMContentLoaded", () => {
             for (let i = 0; i < maintable.rows.length; i++) {
                 maintable.rows[i].addEventListener("click", () => {
 
-
-
                     if (maintable.rows[i].classList == "") {
                         maintable.rows[i].classList = "selected";
                         maintable.rows[i].style.color = "red";
@@ -271,14 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         maintable.rows[i].classList = "";
                         maintable.rows[i].style.color = "#ffffff";
                     }
-
-
-                    
-                        
-                    
-                    
-                    
-                    
+                   
                 });
             }
         }
