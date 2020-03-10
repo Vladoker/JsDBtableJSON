@@ -160,18 +160,20 @@ document.addEventListener("DOMContentLoaded", () => {
        $.post("./api/deleteProduct.php",json);
 
        
-      for (let i = 0; i < maintable.rows.length; i++ ) {
-          if (maintable.rows[i].classList == "selected") {
-            maintable.rows[i].remove();
-           i--;
-          }  
-      }
+    //   for (let i = 0; i < maintable.rows.length; i++ ) {
+    //       if (maintable.rows[i].classList == "selected") {
+    //         maintable.rows[i].remove();
+    //        i--;
+    //       }  
+    //   }
 
       searchBtn.click();
      
 
         selectedRow = [];
     });
+
+
 
 
     
@@ -301,6 +303,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                         // console.log(selectedRow);    
                 });
+
+                maintable.rows[i].addEventListener("dblclick", () => {
+                    console.log(maintable.rows[i]);
+                });
             }
         }
         catch (error) {
@@ -317,5 +323,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+$(document).ready(function () {
+    //initialize swiper when document ready
+    var mySwiper = new Swiper ('.swiper-container', {
+      // Optional parameters
+      direction: 'vertical',
+      loop: true
+    })
+  });
 
+  
 });
+
