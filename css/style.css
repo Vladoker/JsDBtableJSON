@@ -21,6 +21,9 @@ body {
 .modal-content {
    background-color: #1E1E1E;
 }
+#staticBackdrop .modal-content {
+    background-color: #ffffff;
+}
 .modal-content input {
     margin-top: 3%;  
     margin-left: 5%;
@@ -57,3 +60,35 @@ body {
 #typeProductSelect option {
     background-color: #1B1C1D;
 }
+.bd-example-modal-xl.slider .modal-content {
+    background-color: #ffffff;
+}
+.bd-example-modal-xl.slider .modal-header {
+    display: flex;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.582);
+}
+.bd-example-modal-xl.slider .modal-body {
+    display: flex;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.582);
+}
+.bd-example-modal-xl.slider .modal-body .slider-photos {
+    width: 65%;
+}
+
+.bd-example-modal-xl.slider .modal-body .slider-photos .item img {
+    height: 500px;
+    width: auto;
+    margin: auto;
+}
+
+.bd-example-modal-xl.slider .modal-body .slider-desc {
+   padding: 15px;
+   width: 30%;
+}
+
+.bd-example-modal-xl.slider .modal-footer {
+    display: flex;
+    align-self: center;
+}
+
+

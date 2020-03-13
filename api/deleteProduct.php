@@ -7,12 +7,16 @@ $postfiles = $_POST;
 
 
 
+
 foreach ($postfiles as $objPpost) {
-    
+    $patchDir = end($objPpost);
     foreach ($list as $index => $objList) {
        
         if ($objPpost == $objList) {
             unset($list[$index]);
+            if ($patchDir != "") {
+                delDir("../data/photo/" . $patchDir);
+            }
         }
         
     }  
@@ -24,8 +28,17 @@ $i = 0;
         $new_list[$i++] = $obj_list;
     } 
 
+    function delDir($dir) {
+        $files = array_diff(scandir($dir), ['.','..']);
+        foreach ($files as $file) {
+            (is_dir($dir.'/'.$file)) ? delDir($dir.'/'.$file) : unlink($dir.'/'.$file);
+        }
+        return rmdir($dir);
+    }
+
 
 file_put_contents('../data/data.json',json_encode($new_list));
 
 unset($list);
+echo "true";
 ?>

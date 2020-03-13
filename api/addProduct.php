@@ -9,4 +9,5 @@ file_put_contents('../data/data.json',json_encode($list));
 
 
 unset($list);
+echo "true";
 ?>

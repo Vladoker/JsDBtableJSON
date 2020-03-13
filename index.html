@@ -7,7 +7,10 @@
   <title>Tada Base</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/semantic.min.css">
-  <link rel="stylesheet" href="css/swiper.min.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -23,7 +26,6 @@
             <option selected="" value="id">ID</option>
             <option value="purchase">Закупка</option>
             <option value="sale">Продажа</option>
-
             <option value="backpackGirl">Рюкзак женский кож.зам</option>
             <option value="backpack">Рюкзак</option>
             <option value="bagGirl">Сумка женская кож.зам</option>
@@ -49,7 +51,7 @@
     <div class="row addProduct">
       <button class="ui inverted green basic button" data-toggle="modal"
         data-target=".bd-example-modal-xl">Добавить</button>
-      <button id="btnDelete" class="ui inverted red basic button">Удалить</button>
+      <button class="ui inverted red basic button" type="button" data-toggle="modal" data-target="#staticBackdrop">Удалить</button>
     </div>
     <div class="row">
       <div class="col-12">
@@ -65,30 +67,15 @@
             </tr>
           </thead>
           <tbody>
-            <!-- <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry the Bird</td>
-              <td>@twitter</td>
-              <td>dfgdfg</td>
-            </tr> -->
+           
           </tbody>
         </table>
       </div>
     </div>
     <div class="row printer">
-      <button class="ui inverted teal basic button">Распечатать</button>
+      <!-- <button class="ui inverted teal basic button">Распечатать</button> -->
+      <button style="display: none;" id="slideModal" data-toggle="modal"
+      data-target=".bd-example-modal-xl.slider"></button>
     </div>
   </div>
 
@@ -130,6 +117,54 @@
     </div>
   </div>
 
+    <!-- Modal full Slider photo and Description -->
+  <div class="modal fade bd-example-modal-xl slider" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="h5">Закупка: <span id="slider__purchase-item"></span></span>
+          <span class="h5">Продажа: <span id="slider__sale-item"></span></span>
+          <span class="h5">ID: <span id="slider__id-item"></span></span>
+          <span class="h5">От: <span id="slider__who-item"></span></span>
+          <span class="h5">Тип: <span id="slider__type-item"></span></span>
+        </div>
+        <div class="modal-body">
+          <div class="slider-photos" id="slider__photoContainer">
+            <div class="owl-carousel owl-theme" id="own__container">            
+              <!-- <div class="item"><img src="data/photo/BigBack/9317/4.jpg" alt=""></div>
+              <div class="item"><img src="asd.jpg" alt=""></div> -->
+            </div>
+          </div>
+          <p class="slider-desc" id="slider__desc-item">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime facere, aperiam qui sint dolore quod officia odio debitis quas recusandae saepe, adipisci sequi dignissimos! Est provident rerum recusandae ducimus eveniet! Ipsum optio natus error, iure corrupti libero odio, aut laborum hic in totam nihil similique nemo, voluptates qui vitae. Quibusdam aliquid quas accusamus sed eveniet deleniti doloremque quod necessitatibus, velit iure ipsa repellendus tempora sapiente accusantium culpa excepturi. Debitis laborum vero iure saepe architecto. Dolores ipsum veniam sapiente possimus doloremque vero debitis eaque tempora numquam expedita maiores, ipsa rem harum blanditiis! Ratione iure, provident iusto minus quaerat veniam optio voluptatum?</p>
+        </div>
+        <div class="modal-footer">
+          <!-- <button class="ui inverted teal basic button">Изменить</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal Delete Alert -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Предупреждения</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Вы уверены что хотите удалить выбранные товары ?
+      </div>
+      <div class="modal-footer">
+        <button id="closeDel" type="button" class="btn btn-dark" data-dismiss="modal">Закрыть</button>
+        <button id="btnDelete" type="button" class="btn btn-danger">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
   <script src="js/jquery-3.4.1.slim.min.js"></script>
@@ -137,7 +172,8 @@
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/semantic.min.js"></script>
-  <link rel="stylesheet" href="js/swiper.min.js">
+  <script src="js/owl.carousel.min.js"></script>
+
   <script src="js/main.js"></script>
 </body>
 

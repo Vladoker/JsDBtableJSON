@@ -4,8 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const submit = document.getElementById("submitAddProduct");
     const inputSearch = document.getElementById("inputSearch");
     const typeProduct = document.getElementById("typeProductSelect");
+    const slideModal = document.getElementById("slideModal");
     
-    
+   
     let numberRow = 0;
     let maintable;
     let selectedRow = [];
@@ -18,6 +19,17 @@ document.addEventListener("DOMContentLoaded", () => {
         photo: document.getElementById("uploadPhotoBtn_1"),
         Who: document.getElementById("textfieldWho"),
     };
+
+    const sliderForm = {
+        purchase: document.getElementById("slider__purchase-item"),
+        sale: document.getElementById("slider__sale-item"),
+        id: document.getElementById("slider__id-item"),
+        desc: document.getElementById("slider__desc-item"),
+        type: document.getElementById("slider__type-item"),
+        Who: document.getElementById("slider__who-item"),
+        photoContainer: document.getElementById("slider__photoContainer"),
+    };
+
 
     
 
@@ -81,8 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
           
         if(modalData.purchase.value && modalData.sale.value &&
            modalData.id.value && modalData.Who.value && value != "null") {
-            $.post("./api/addProduct.php", modalValues);
-            document.querySelector(".modal").click();
+            $.post("./api/addProduct.php", modalValues,()=>{
+                document.querySelector(".modal").click();
+                searchBtn.click();// обновляем таблицу рендеринг              
+            });
+            
         }
         else {
             document.getElementById("typeProductSelect").classList = "ui inverted red button";
@@ -115,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     // ОК
                     if( typeof respond.error === 'undefined' ){
                         // файлы загружены, делаем что-нибудь
-        
+                        
                         // покажем пути к загруженным файлам в блок '.ajax-reply'
         
                     //    console.log(respond);
@@ -134,10 +149,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
          
-        searchBtn.click();
+        
     });
 
-    btnDelete.addEventListener("click", () => {   
+    btnDelete.addEventListener("click", () => {  
+        closeDel.click();
         let json = {};
 
         for (let i = 0, j = 0; i < maintable.rows.length; i++) {
@@ -157,18 +173,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
 
-       $.post("./api/deleteProduct.php",json);
-
-       
-    //   for (let i = 0; i < maintable.rows.length; i++ ) {
-    //       if (maintable.rows[i].classList == "selected") {
-    //         maintable.rows[i].remove();
-    //        i--;
-    //       }  
-    //   }
-
-      searchBtn.click();
-     
+       $.post("./api/deleteProduct.php",json,() => {
+          closeDel.click();
+          searchBtn.click();          
+       });
 
         selectedRow = [];
     });
@@ -305,7 +313,67 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 maintable.rows[i].addEventListener("dblclick", () => {
-                    console.log(maintable.rows[i]);
+                    console.dir(maintable.rows[i]);
+
+                    sliderForm.purchase.textContent = maintable.rows[i].cells[1].textContent;
+                    sliderForm.sale.textContent = maintable.rows[i].cells[2].textContent;
+                    sliderForm.id.textContent = maintable.rows[i].cells[3].textContent;
+                    sliderForm.Who.textContent = maintable.rows[i].cells[4].textContent;
+                    sliderForm.type.textContent = maintable.rows[i].cells[5].textContent;
+                    sliderForm.desc.textContent = maintable.rows[i].cells[6].textContent;
+
+                    let urlPhoto = maintable.rows[i].cells[7].textContent;
+
+                   
+                    
+                    sliderForm.photoContainer.removeChild(sliderForm.photoContainer.children[0]);
+
+                    let div = document.createElement("div");
+                    div.classList = "owl-carousel";
+                    div.classList += " owl-theme";
+                    div.id = "own__container";  
+        
+                     sliderForm.photoContainer.appendChild(div);
+                
+                    let ownContainer = document.getElementById("own__container");
+                    if (urlPhoto != "") {
+                        $.post("./api/getPhoto.php",urlPhoto,(data) => {
+                            let json = JSON.parse(data);                          
+                            json.forEach(url => {                               
+                                let div = document.createElement("div");
+                                let img = document.createElement("img");
+                               
+                                div.classList = "item";
+                                img.src = url.slice(3,url.length);
+
+                                div.appendChild(img);
+                                ownContainer.appendChild(div);
+                                
+                            });
+
+                            $(document).ready(function () {
+                                $('.owl-carousel').owlCarousel({
+                                  loop: true,
+                                  margin: 15,
+                                  nav: false,
+                                  
+                                  responsive: {
+                                    0: {
+                                      items: 1
+                                    },
+                                    600: {
+                                      items: 1
+                                    },
+                                    1000: {
+                                      items: 1
+                                    }
+                                  }
+                                });
+                              });
+                        });
+                    }
+
+                    slideModal.click();
                 });
             }
         }
@@ -320,18 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
 
+    
 
-
-
-$(document).ready(function () {
-    //initialize swiper when document ready
-    var mySwiper = new Swiper ('.swiper-container', {
-      // Optional parameters
-      direction: 'vertical',
-      loop: true
-    })
-  });
-
-  
 });
 
