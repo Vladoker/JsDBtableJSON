@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "id": maintable.rows[i].cells[3].textContent,
                     "descriptions": maintable.rows[i].cells[6].textContent,
                     "Who":maintable.rows[i].cells[4].textContent,
-                    "TypeProduct": maintable.rows[i].cells[5].textContent,                    
+                    "TypeProduct": converterWord(maintable.rows[i].cells[5].textContent),                    
                     "urlPhoto": maintable.rows[i].cells[7].textContent                  
                 }
                 
@@ -273,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const tdElem4 = document.createElement("td");
         tdElem4.textContent = value.Who;
         const tdElem5 = document.createElement("td");
-        tdElem5.textContent = value.TypeProduct;
+        tdElem5.textContent = converterWord(value.TypeProduct);
         const tdElem6 = document.createElement("td");
         tdElem6.textContent = value.descriptions;
         tdElem6.style.display = "none";
@@ -384,6 +384,34 @@ document.addEventListener("DOMContentLoaded", () => {
         
        
     };
+
+    const converterWord = (word) => {
+        let mas = {
+            "backpackGirl" : "Рюкзак женский кож.зам",
+            "backpack" : "Рюкзак",
+            "bagGirl" : "Сумка женская кож.зам",
+            "bagMan" : "Сумка мужская",
+            "BigBack" : "Сумка богажная",
+            "BigBackWhell" : "Сумка богажная на колёсах",
+            "BagforBoock" : "Сумка для ноутбуков",
+            "iemodans" : "Чемоданы пластик",
+            "iemodansText" : "Чемоданы текстиль",
+            "walletMan" : "Кошелёк мужской",
+            "walletGirl" : "Кошелёк женский",
+            "clutch" : "Клатч"
+        };
+
+        for (let i in mas) {
+            if (word == i) {
+                return mas[i];
+            }
+            else if (word == mas[i]) {
+                return i;
+            }
+        }
+    };
+
+    
 
     
 
