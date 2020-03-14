@@ -91,4 +91,24 @@ body {
     align-self: center;
 }
 
+@media screen and (max-width: 768px) {
+    .ui.action.input {
+        display: flex;
+        flex-direction: column;
+    }
+    .ui.action.input:not([class*="left action"])>input,.ui.compact.selection.dropdown,.ui.button.ui.inverted.orange.basic {
+        border-radius: 5px !important;
+        margin-top: 15px;
+    }
+    #uploadPhotoBtn_1 {
+        width: 70px;
+    }
+    #typeProductSelect {
+        width: 125px;
+    }
+    #textfieldDesc {
+        height: 100px;
+    }
+}
+
 
